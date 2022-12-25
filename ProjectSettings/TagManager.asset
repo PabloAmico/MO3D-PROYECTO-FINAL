@@ -11,6 +11,8 @@ TagManager:
   - Missile
   - Zone Rocket
   - Laser
+  - RockOfMoney
+  - HangarPlayer
   layers:
   - Default
   - TransparentFX
