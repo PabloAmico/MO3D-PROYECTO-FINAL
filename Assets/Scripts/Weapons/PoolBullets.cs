@@ -41,7 +41,7 @@ public class PoolBullets : MonoBehaviour
         Bullets aux = Instantiate(_prefab_Bullet.GetComponent<Bullets>(), Vector3.zero, Quaternion.identity);
         aux.gameObject.transform.SetParent(gameObject.transform, true);
         _pool_Bullets.Add(aux);
-        print("Sin balas");
+        //print("Sin balas");
         return aux;
     }
 }

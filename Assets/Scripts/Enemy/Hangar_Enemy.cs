@@ -7,6 +7,7 @@ public class Hangar_Enemy : MonoBehaviour
 
     public bool _is_Attacked = false;
     public Vector3 _position_Spawn;
+    public float _life = 2500;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,5 +18,10 @@ public class Hangar_Enemy : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Set_Damage(int Damage){
+        _life -= Damage;
+        print("Daño recibido, vida total : " + _life);
     }
 }

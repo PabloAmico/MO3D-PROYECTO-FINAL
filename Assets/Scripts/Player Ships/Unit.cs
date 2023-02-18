@@ -65,6 +65,7 @@ public class Unit : MonoBehaviour
     {
         _manager_Unit._units.Remove(unit);
         _manager_Unit._units_Selected.Remove(unit);
+        _manager_Unit._units_Total.Remove(unit);
     }
    
     public virtual void Init()

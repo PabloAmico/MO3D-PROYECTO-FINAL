@@ -11,6 +11,7 @@ public class Laser : MonoBehaviour
     public GameObject _objective = null;
     public StatsUnits _Stats;
     public bool Attack;
+    public bool _is_Player;
    // private int _damage;
     
     void Start()
@@ -28,24 +29,49 @@ public class Laser : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit))
             {
-                if (hit.collider.tag == "Ship Enemy")
-                {
-                    try
+                if(_is_Player){
+                    if (hit.collider.tag == "Ship Enemy")
                     {
-                        _lineRenderer.SetPosition(1, _objective.transform.position);
-                    }
-                    catch
-                    {
-
-                    }
-                    
-                    if (Attack)
-                    {
-                        if (hit.collider.GetComponent<StatsUnits>() == _Stats._unit_Objective)
+                        try
                         {
-                            hit.collider.GetComponent<StatsUnits>().Set_Damage(_Stats._points_Attack);
-                            hit.collider.GetComponent<StatsUnits>()._unit_Objective = gameObject.GetComponentInParent<StatsUnits>();
-                            Attack = false;
+                            _lineRenderer.SetPosition(1, _objective.transform.position);
+                        }
+                        catch
+                        {
+
+                        }
+                        
+                        if (Attack)
+                        {
+                            if (hit.collider.GetComponent<StatsUnits>() == _Stats._unit_Objective)
+                            {
+                                hit.collider.GetComponent<StatsUnits>().Set_Damage(_Stats._points_Attack);
+                                hit.collider.GetComponent<StatsUnits>()._unit_Objective = gameObject.GetComponentInParent<StatsUnits>();
+                                Attack = false;
+                            }
+                        }
+                    }
+                }else{
+                    if (hit.collider.tag == "Player")
+                    {
+                        try
+                        {
+                            _lineRenderer.SetPosition(1, _objective.transform.position);
+                            //print(_objective.transform.position);
+                        }
+                        catch
+                        {
+
+                        }
+                        
+                        if (Attack)
+                        {
+                            if (hit.collider.GetComponent<StatsUnits>() == _Stats._unit_Objective)
+                            {
+                                hit.collider.GetComponent<StatsUnits>().Set_Damage(_Stats._points_Attack);
+                                hit.collider.GetComponent<StatsUnits>()._unit_Objective = gameObject.GetComponentInParent<StatsUnits>();
+                                Attack = false;
+                            }
                         }
                     }
                 }

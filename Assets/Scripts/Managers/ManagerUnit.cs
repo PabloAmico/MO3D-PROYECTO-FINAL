@@ -15,7 +15,7 @@ public class ManagerUnit : MonoBehaviour
 
     private SFX_Radio _radio;
 
-    public int _max_Units = 0;
+    public int _max_Units = 200;
     // Start is called before the first frame update
 
    

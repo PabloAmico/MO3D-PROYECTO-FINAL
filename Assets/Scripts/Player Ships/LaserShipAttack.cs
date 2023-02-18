@@ -9,17 +9,19 @@ public class LaserShipAttack : StatsUnits
     public GameObject _left_Shoot = null;
     private Rocket _rocket;
     private Laser[]  _laser;
+
+    public bool _is_Player = true;
     // Start is called before the first frame update
     
 
     protected override void Init()
     {
-        _laser = GetComponentsInChildren<Laser>();
+        
         _points_Life_Max = _points_Life;
         _rocket = FindObjectOfType<Rocket>();
-        //_particleSystem.Stop();
-        //_pool = FindObjectOfType<PoolBullets>();
-        // POOL LASER?
+        _laser = GetComponentsInChildren<Laser>();
+        _laser[0]._is_Player = _is_Player;
+        _laser[1]._is_Player = _is_Player;
     }
 
     // Update is called once per frame
@@ -27,8 +29,11 @@ public class LaserShipAttack : StatsUnits
     {
         if (_points_Life <= 0)
         {
+            _show_Select.Set_Show(false);
+            _laser[0].SetLaser(false);
+            _laser[1].SetLaser(false);
             OnDestroy();
-            //Kill_Unit();
+            
         }
         else
         {
@@ -50,30 +55,31 @@ public class LaserShipAttack : StatsUnits
             if (_unit_Objective._points_Life <= 0)
             {
                 _unit_Objective = null;
-                if (_units_InZone[0] != null)
-                {
-                    if (_units_InZone[0]._points_Life > 0)
+                if(_units_InZone.Count > 0){
+                    if (_units_InZone[0] != null)
                     {
-                        _unit_Objective = _units_InZone[0];
-
-                    }
-                    else
-                    {
-                        if (_units_InZone[1] != null)
+                        if (_units_InZone[0]._points_Life > 0)
                         {
-                            _unit_Objective = _units_InZone[1];
+                            _unit_Objective = _units_InZone[0];
+
                         }
                         else
                         {
-                            _laser[0].SetLaser(false);
-                            _laser[1].SetLaser(false);
-                        }
+                            if (_units_InZone[1] != null)
+                            {
+                                _unit_Objective = _units_InZone[1];
+                            }
+                            else
+                            {
+                                _laser[0].SetLaser(false);
+                                _laser[1].SetLaser(false);
+                            }
 
+                        }
+                        _laser[0].SetLaser(false);
+                        _laser[1].SetLaser(false);
                     }
-                    _laser[0].SetLaser(false);
-                    _laser[1].SetLaser(false);
                 }
-                
             }
             else
             {

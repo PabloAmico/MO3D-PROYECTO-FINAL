@@ -27,6 +27,8 @@ public class StatsUnits : MonoBehaviour
     public bool _zone_Rocket = false;
 
     private SFX_Radio _radio;
+
+    protected ShowSelectShip _show_Select = null;
     void Start()
     {
         _ship = GetComponent<Ship>();
@@ -36,6 +38,7 @@ public class StatsUnits : MonoBehaviour
         _cooldown_Current = _cooldown_Attack;
         _radio = FindObjectOfType<SFX_Radio>();
         _canvas_Hit = GetComponentInChildren<CanvasHit>();
+        _show_Select = GetComponentInChildren<ShowSelectShip>();
         Init();
     }
 

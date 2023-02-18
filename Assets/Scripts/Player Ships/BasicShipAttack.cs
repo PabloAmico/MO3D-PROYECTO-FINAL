@@ -17,6 +17,7 @@ public class BasicShipAttack : StatsUnits
         Attack();
         if(_points_Life <= 0)
         {
+            _show_Select.Set_Show(false);
             OnDestroy();
             //Kill_Unit();
         }

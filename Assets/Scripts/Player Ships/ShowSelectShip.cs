@@ -14,12 +14,13 @@ public class ShowSelectShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+     
     }
 
     public void Set_Show(bool Show)
     {
-        //print("SHOW " + Show);
+       
         GetComponent<SpriteRenderer>().enabled = Show;
+       
     }
 }

@@ -11,6 +11,10 @@ public class IA_Ship : StatsUnits
     protected bool _rocket_InZone = false;
 
     protected NavMeshAgent _agent;
+
+    protected int _num_ship;
+    private bool _eliminate = false;
+    protected Manager_IA_Spawn _manager = null;
     
     void Update()
     {
@@ -60,7 +64,7 @@ public class IA_Ship : StatsUnits
 
     protected override void Init()
     {
-       
+       _manager = FindObjectOfType<Manager_IA_Spawn>();
         _build_Objective = FindObjectOfType<Rocket>();
         _agent = gameObject.GetComponent<NavMeshAgent>();
         _points_Life_Max = _points_Life;
@@ -85,14 +89,22 @@ public class IA_Ship : StatsUnits
 
     private void On_Stop()
     {
+        
         this._agent.isStopped = true;
     }
 
     private void OnDestroy()
     {
-        //transform.position = new Vector3(1000f, 1000f, 1000f);
+        Delete_Ship_List();
         GetComponent<BoxCollider>().enabled = false;
         Destroy(this.gameObject, 5f);
+    }
+
+     private void Delete_Ship_List(){
+        if(!_eliminate){
+            _eliminate = true;
+            _manager.Eliminate_Ship(_num_ship); //Le resto 1 a la casilla 2 del array que es la que contiene las naves de laser.
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -136,7 +148,7 @@ public class IA_Ship : StatsUnits
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //print("Salio el jugador");
+           
             _units_InZone.Remove(other.gameObject.GetComponent<StatsUnits>());
             if (other.gameObject.GetComponent<StatsUnits>() == _unit_Objective)
             {

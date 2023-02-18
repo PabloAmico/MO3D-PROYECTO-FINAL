@@ -14,9 +14,9 @@ public class RecollectShip : StatsUnits
 
     public float _timeRecollect;
     private float _timePaid;
-    private RockOfMoney _objective_Recollect = null;
+    public RockOfMoney _objective_Recollect = null;
 
-    private bool _destiny = false;
+    public bool _destiny = false;
 
     public PoolRockOfMoney _pool_Money;
 
@@ -51,7 +51,7 @@ public class RecollectShip : StatsUnits
         if(!_destiny){
             Set_Destiny();
         }else{
-            if (_destiny && !_sync){
+            if (_contact && !_sync){
                 
                 _sync = _money_Text.GoSync();
                 //print("Sincronizando...");
@@ -68,7 +68,7 @@ public class RecollectShip : StatsUnits
             _circle_Fill.fillAmount = _money_Text.Get_Current_Time_Paid() / _money_Text.Get_Time_Paid();
             if(_money_Text.Get_Current_Time_Paid() >= _money_Text.Get_Time_Paid())
             {
-                print("ENTRE " + _sync + " " + _contact);
+                //print("ENTRE " + _sync + " " + _contact);
                 Collect_Money(_collect_Money);
                 //_timePaid = 0f;
             }
@@ -100,7 +100,7 @@ public class RecollectShip : StatsUnits
             {
                 print("ME MORI");
                 _contact = false;
-                Destroy(_objective_Recollect, 0.5f);
+                //Destroy(_objective_Recollect, 0.5f);
                 _objective_Recollect = null;
                 _destiny = false;
             }
@@ -129,17 +129,34 @@ public class RecollectShip : StatsUnits
                 float aux_distance = Vector2.Distance(this.transform.position, rock.transform.position);    //Obtengo la distancia entre la roca y mi nave.
                 if(aux_distance < distance){    //corroboro la distancia con la distancia que tengo guardada
                     _objective_Recollect = rock;    //Le asigno el objetivo.
-                    _destiny = true;
+                    distance = aux_distance;
                 }
             }
-            print("Nuevo destino " + _objective_Recollect.name);
+            if(_objective_Recollect != null){
+                _destiny = true;
+            }
+            //print("Nuevo destino " + _objective_Recollect.name);
         }
     }
 
     private void Move_Ship(){
-        if(_objective_Recollect != null){
-            print("En movimiento");
+        if( _destiny && !_contact){
+            //print("En movimiento");
             _ship.OnMove(_objective_Recollect.transform.position);
         }
     }
+
+  private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.CompareTag("RockOfMoney")){
+            _contact = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if(other.gameObject.CompareTag("RockOfMoney")){
+            _contact = false;
+        }
+    }
 }
+
+  

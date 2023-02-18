@@ -10,7 +10,7 @@ public class CollectRadius : MonoBehaviour
     void Start()
     {
         _ship = GetComponentInParent<RecollectShip>();
-        //_laser = _ship.GetComponentInChildren<LaserRecollect>();
+      
     }
 
     // Update is called once per frame
@@ -27,22 +27,22 @@ public class CollectRadius : MonoBehaviour
             _ship.Set_Recollect(other.gameObject.GetComponent<RockOfMoney>());
             GetComponentInParent<StatsUnits>()._ship.OnStop();
             other.GetComponent<RockOfMoney>().Set_Ship(_ship);
-            //_laser._objective = other.gameObject;
-            //_laser.SetLaser(true);
-            //_laser.SetObjective(other.gameObject);
+           
             _ship._contact = true;
         }
     }
 
     private void OnTriggerExit(Collider other) 
     {
-        print("Algo salio");
+        //print("Algo salio");
         if(other.tag == "RockOfMoney")
         {
             print("ME FUII");
             _ship.Set_Recollect(null);
             _ship._sync = false;
-            _ship._contact = true;
+            _ship._contact = false;
         }
     }
+
+  
 }

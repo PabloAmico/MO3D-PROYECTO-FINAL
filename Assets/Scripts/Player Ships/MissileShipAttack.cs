@@ -7,7 +7,7 @@ public class MissileShipAttack : StatsUnits
     public GameObject _missile_Shoot = null;
     private PoolMissile _pool;
     private Missile _missile;
-    private float _zone_Damage; //tamaño de la esfera de explosion.
+    private float _zone_Damage; //tamaï¿½o de la esfera de explosion.
     private Rocket _rocket;
     //private List<StatsUnits> _enemyZoneExplosion = new List<StatsUnits>();
 
@@ -27,6 +27,7 @@ public class MissileShipAttack : StatsUnits
         Attack();
         if(_points_Life <= 0)
         {
+            _show_Select.Set_Show(false);
             OnDestroy();
         }
     }
@@ -77,6 +78,7 @@ public class MissileShipAttack : StatsUnits
     private void OnDestroy()
     {
         //Remover del manager unit
+        
         _ship.RemoveShip(gameObject.GetComponent<Ship>());
         Destroy(this.gameObject, 5f);
     }
@@ -91,7 +93,7 @@ public class MissileShipAttack : StatsUnits
             //{
             try
             {
-                if (_units_InZone.Contains(_unit_Objective) && _unit_Objective.GetComponent<IABasicShip>()._points_Life > 0)
+                if (_units_InZone.Contains(_unit_Objective) && _unit_Objective.GetComponent<StatsUnits>()._points_Life > 0)
                 {
                     if (_cooldown_Current <= 0)
                     {

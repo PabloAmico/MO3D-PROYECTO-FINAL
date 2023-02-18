@@ -28,5 +28,7 @@ public class IAMissileShip : IA_Ship
     protected override void Initz()
     {
         _pool = FindObjectOfType<PoolMissile>();
+        _num_ship = 2;  //se utiliza esta variable para restar en 1 la cantidad de naves de este tipo.
+        _manager.Add_Ships(_num_ship);
     }
 }

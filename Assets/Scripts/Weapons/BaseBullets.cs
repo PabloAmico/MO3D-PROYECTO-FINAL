@@ -56,14 +56,6 @@ public class BaseBullets : MonoBehaviour
     {
         _ship_Shooter = Shooter;
         Set_Texture();
-        /*if (_ship_Shooter.GetComponent<Faction>().Is_PlayerUnit)
-        {
-            gameObject.GetComponent<MeshRenderer>().material = _material_Bullet_Player;
-        }
-        else
-        {
-            gameObject.GetComponent<MeshRenderer>().material = _material_Bullet_Enemy;
-        }*/
     }
 
     virtual protected void Set_Texture()
@@ -98,6 +90,8 @@ public class BaseBullets : MonoBehaviour
 
     protected void OnTriggerEnter(Collider other)
     {
+
+        //colision con la nave enemiga.
         try
         {
             if (other.gameObject.CompareTag("Ship Enemy") && _ship_Shooter.gameObject.CompareTag("Player"))
@@ -109,7 +103,7 @@ public class BaseBullets : MonoBehaviour
                 {
                     if (other != null)
                     {
-                        other.gameObject.GetComponent<ParticleControlShips>().Active_Particles();    //si recibi suficiente daño activo las particulas
+                        other.gameObject.GetComponent<ParticleControlShips>().Active_Particles();    //si recibi suficiente daï¿½o activo las particulas
                     }
                 }
                 catch
@@ -117,7 +111,7 @@ public class BaseBullets : MonoBehaviour
 
                 }
 
-                //Debug.Log(other.gameObject.GetComponent<StatsUnits>()._points_Life);
+                
                 if (other.gameObject.GetComponent<StatsUnits>()._points_Life <= 0)
                 {
                     _radio.Get_Down();
@@ -131,17 +125,16 @@ public class BaseBullets : MonoBehaviour
 
         }
 
+        //colision con el jugador.
         if (other.gameObject != null && _ship_Shooter.gameObject != null)
         {
             if (other.gameObject.CompareTag("Player") && _ship_Shooter.gameObject.CompareTag("Ship Enemy"))
             {
-                //Debug.Log("Colision Player");
                 other.gameObject.GetComponent<StatsUnits>().Set_Damage(_Damage);
                 
                 try
                 {
-                    other.gameObject.GetComponent<ParticleControlShips>().Active_Particles();    //si recibi suficiente daño activo las particulas
-                                                                                                 //Debug.Log(other.gameObject.GetComponent<StatsUnits>()._points_Life);
+                    other.gameObject.GetComponent<ParticleControlShips>().Active_Particles();    //si recibi suficiente daï¿½o activo las particulas
                     if (other.gameObject.GetComponent<StatsUnits>()._points_Life <= 0)
                     {
                         _ship_Shooter.GetComponent<IA_Ship>()._units_InZone.Remove(other.gameObject.GetComponent<StatsUnits>());
@@ -157,6 +150,8 @@ public class BaseBullets : MonoBehaviour
             }
         }
 
+
+        //colision con cohete
         try
         {
             if (other != null)
@@ -165,6 +160,24 @@ public class BaseBullets : MonoBehaviour
                 {
                     //print("Colision cohete");
                     other.gameObject.GetComponent<Rocket>().Set_Damage(_Damage);
+                    transform.position = new Vector3(1000f, 1000f, 1000f);
+                }
+            }
+        }
+        catch
+        {
+
+        }
+
+        //colision con hangar enemigo
+        try
+        {
+            if (other != null)
+            {
+                if (other.gameObject.CompareTag("HangarEnemy") && _ship_Shooter.gameObject.CompareTag("Player"))
+                {
+                    //print("Colision cohete");
+                    other.gameObject.GetComponent<Hangar_Enemy>().Set_Damage(_Damage);
                     transform.position = new Vector3(1000f, 1000f, 1000f);
                 }
             }

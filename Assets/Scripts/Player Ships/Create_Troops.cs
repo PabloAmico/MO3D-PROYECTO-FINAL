@@ -14,12 +14,13 @@ public class Create_Troops : MonoBehaviour
     public int _cost_Missile = 300;
     public int _cost_Laser = 150;
     private Money _money;
-    public Text _message;
+    public Message_Control _message;
 
     // Start is called before the first frame update
     void Start()
     {
         _money = GetComponent<Money>();
+        _message = FindObjectOfType<Message_Control>();
     }
 
     // Update is called once per frame
@@ -37,7 +38,7 @@ public class Create_Troops : MonoBehaviour
         }
         else
         {
-            _message.text = "No hay dinero. Costo de tropa $75";
+            _message.Show_Message("No hay dinero. Costo de tropa $75");
         }
     }
 
@@ -50,7 +51,7 @@ public class Create_Troops : MonoBehaviour
         }
         else
         {
-            _message.text = "No hay dinero. Costo de tropa $300";
+            _message.Show_Message("No hay dinero. Costo de tropa $300");
         }
     }
     public void Instance_Laser_Ship()
@@ -62,7 +63,7 @@ public class Create_Troops : MonoBehaviour
         }
         else
         {
-            _message.text = "No hay dinero. Costo de tropa $150";
+            _message.Show_Message("No hay dinero. Costo de tropa $150");
         }
     }
 }

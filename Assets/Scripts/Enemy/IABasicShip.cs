@@ -37,5 +37,7 @@ public class IABasicShip : IA_Ship
     protected override void Initz()
     {
         _pool = FindObjectOfType<PoolBullets>();
+        _num_ship = 0;  //se utiliza esta variable para restar en 1 la cantidad de naves de este tipo.
+        _manager.Add_Ships(_num_ship);
     }
 }
