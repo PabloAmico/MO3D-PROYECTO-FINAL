@@ -4,36 +4,39 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+//Canvas que muestra el daño recibido por las naves.
 public class CanvasHit : MonoBehaviour
 {
-    public TextHit _text_Prefab;
+    ChangeCameraControl _cam;
+    public TextHit _text_Prefab; 
     public string Name;
-    //private bool _text_enabled = false;
-    private TextHit _text_Instantiate = null;
-    // Start is called before the first frame update
+    private TextHit _text_Instantiate = null;   //Texto que se instancia.
     void Start()
     {
-        Name = gameObject.GetComponentInParent<StatsUnits>().name;
+        _cam = FindObjectOfType<ChangeCameraControl>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         UI_Look_Camera();
     }
 
+
+//Metodo que muestra en un texto cada vez que recibe daño.
     public void Create_Text(int life)
     {
-        if (_text_Instantiate == null)
+        if (_text_Instantiate == null)  //Si el texto es igual a nulo.
         {
             try
             {
-                _text_Instantiate = Instantiate(_text_Prefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
-                _text_Instantiate.transform.parent = gameObject.transform;
-                // aux.GetComponent<Text>().text = "HOLA";
-
+                _text_Instantiate = Instantiate(_text_Prefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);   //Instancio el texto
+                _text_Instantiate.transform.parent = gameObject.transform;  //Lo hago hijo de este objeto.
+                
+                //Le asigno un texto.
                 _text_Instantiate.Set_Text(life, gameObject.GetComponentInParent<StatsUnits>().name, gameObject.GetComponent<CanvasHit>());
 
+                //Le asigno la altura maxima hasta la que va a moverse y le digo que se mueva.
                 _text_Instantiate._max_Height = gameObject.GetComponent<RectTransform>().anchorMax.y + transform.position.y;
                 _text_Instantiate._move = true;
             }
@@ -41,6 +44,7 @@ public class CanvasHit : MonoBehaviour
         }
         else
         {
+            //Sino le sumo mas daño al texto.
             _text_Instantiate.Set_Text(life, gameObject.GetComponentInParent<StatsUnits>().name, gameObject.GetComponent<CanvasHit>());
         }
         
@@ -51,9 +55,16 @@ public class CanvasHit : MonoBehaviour
         _text_Instantiate = null;
     }
 
+
+//Metodo para hacer que el texto siempre mire hacia la camara.
     private void UI_Look_Camera()
     {
-        transform.forward = Camera.main.transform.forward;
-        
+        try{
+            if(_cam._array_Camera[0].activeSelf){   //si la camara pirncipal esta activa.
+            transform.forward = _cam._array_Camera[0].GetComponent<Camera>().transform.forward; //Le digo que apunte hacia ella.
+        }
+        }catch{
+            
+        }
     }
 }

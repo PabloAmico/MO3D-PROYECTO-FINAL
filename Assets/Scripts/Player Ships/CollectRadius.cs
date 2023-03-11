@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Clase utilizada por la nave de recoleccion.
 public class CollectRadius : MonoBehaviour
 {
     private RecollectShip _ship;
-   //private LaserRecollect _laser;
-    // Start is called before the first frame update
     void Start()
     {
         _ship = GetComponentInParent<RecollectShip>();
       
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
@@ -21,24 +20,20 @@ public class CollectRadius : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "RockOfMoney")
+        if(other.tag == "RockOfMoney")  //Si tiene cerca una roca de dinero.
         {
-            ///print("Shit shit money money");
-            _ship.Set_Recollect(other.gameObject.GetComponent<RockOfMoney>());
-            GetComponentInParent<StatsUnits>()._ship.OnStop();
+            _ship.Set_Recollect(other.gameObject.GetComponent<RockOfMoney>());  //La recolecta
+            GetComponentInParent<StatsUnits>()._ship.OnStop();  //Se detiene.
             other.GetComponent<RockOfMoney>().Set_Ship(_ship);
-           
-            _ship._contact = true;
+            _ship._contact = true;  
         }
     }
 
     private void OnTriggerExit(Collider other) 
     {
-        //print("Algo salio");
-        if(other.tag == "RockOfMoney")
+        if(other.tag == "RockOfMoney") //Si esa roca se elimina 
         {
-            print("ME FUII");
-            _ship.Set_Recollect(null);
+            _ship.Set_Recollect(null);  //Se setea la recoleccion
             _ship._sync = false;
             _ship._contact = false;
         }

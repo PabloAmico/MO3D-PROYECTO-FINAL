@@ -7,7 +7,7 @@ public class ParticleControlShips : MonoBehaviour
     protected ParticleSystem[] _particleSystem;
     StatsUnits _statsUnits;
     public Material _material;
-    // Start is called before the first frame update
+    
     void Start()
     {
         _statsUnits = GetComponent<StatsUnits>();
@@ -18,7 +18,6 @@ public class ParticleControlShips : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (_statsUnits._points_Life <= 0)
@@ -27,12 +26,13 @@ public class ParticleControlShips : MonoBehaviour
         }
     }
 
+//Metodo para instanciar las particulas cuando muere la nave.
     private void Kill_Unit()
     {
         if (!_statsUnits._is_Dead)
         {
             _statsUnits._is_Dead = true;
-            _particleSystem[2].Play();
+            _particleSystem[2].Play();  //Activo el fuego y la explosion.
         }
         if (!_particleSystem[2].isPlaying && !_particleSystem[1].isPlaying)
         {
@@ -42,11 +42,12 @@ public class ParticleControlShips : MonoBehaviour
         
     }
 
+//Metodo para activas las particulas
     public void Active_Particles()
     {
         if (_statsUnits._points_Life <= (_statsUnits._points_Life_Max * 0.6) && _statsUnits._points_Life > (_statsUnits._points_Life_Max * 0.4))
         {
-            _particleSystem[0].Play();
+            _particleSystem[0].Play();  //Activo el humo
         }
 
         if (_statsUnits._points_Life <= (_statsUnits._points_Life_Max * 0.4) && _statsUnits._points_Life > 0)

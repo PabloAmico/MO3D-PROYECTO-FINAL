@@ -5,9 +5,7 @@ using UnityEngine.AI;
 
 public class Unit : MonoBehaviour
 {
-    //public Camera _sceneCamera;
-    //private NavMeshAgent _agent;
-    protected bool _selected;
+    protected bool _selected;   //True si la nave se encuentra seleccionada.
     public ManagerUnit _manager_Unit;
     public bool _select_Attack = false;
     protected Create_Troops _create_Troops;
@@ -29,38 +27,27 @@ public class Unit : MonoBehaviour
         }
     }
 
-
-    private void Awake()
-    {
-       // Init();
-    }
-    // Start is called before the first frame update
     void Start()
     {
        
-        //Debug.Log("Start");
+
         this.Is_Selected = false;
-        //print("Creado");
         if (this.GetComponent<Faction>().Is_PlayerUnit)
         {
             _manager_Unit = GameObject.FindObjectOfType<ManagerUnit>();
-            //print(_manager_Unit);
-            _manager_Unit._units.Add(this);
+            _manager_Unit._units.Add(this); //Agrego este objeto a la lista de unidades del ManagerUnits.
         }
 
         try{
             _manager_Unit._units_Total.Add(this);
         }catch{
-            //Debug.LogError(this);
-           // print("Error en nave " + gameObject.name);
         }
-        //_manager_Unit._units_Total.Add(this);
         _create_Troops = FindObjectOfType<Create_Troops>();
-        //print(gameObject.name);
         Init();
    
     }
 
+//Metodo para remover unidades del manager unit.
     public void RemoveShip(Unit unit)
     {
         _manager_Unit._units.Remove(unit);
@@ -68,6 +55,7 @@ public class Unit : MonoBehaviour
         _manager_Unit._units_Total.Remove(unit);
     }
    
+//Metodos virtuales.
     public virtual void Init()
     {
 

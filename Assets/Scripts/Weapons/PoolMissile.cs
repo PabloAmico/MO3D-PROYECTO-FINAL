@@ -7,7 +7,9 @@ public class PoolMissile : MonoBehaviour
 
     public GameObject _prefab_Missile = null;
     List<Missile> _pool_Missile = new List<Missile> ();
-    // Start is called before the first frame update
+
+
+//Al iniciar tengo misiles creados en la escena, las cuales las asigno a este pool.
     void Start()
     {
         Missile[] Aux = this.gameObject.GetComponentsInChildren<Missile>(); 
@@ -19,14 +21,11 @@ public class PoolMissile : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     public Missile Assign_Missile()
     {
+          //Devuelvo un misil si hay alguna ya creada sin uso
         foreach(Missile m in _pool_Missile)
         {
             if (!m.gameObject.activeInHierarchy)
@@ -35,7 +34,7 @@ public class PoolMissile : MonoBehaviour
                 return m;
             }
         }
-
+//Si no la hay instancio una y la devuelvo.
         Missile Aux = Instantiate(_prefab_Missile.GetComponent<Missile>(), Vector3.zero, Quaternion.identity);
         Aux.gameObject.transform.SetParent(gameObject.transform, true);
         _pool_Missile.Add(Aux);

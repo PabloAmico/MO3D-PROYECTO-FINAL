@@ -5,39 +5,32 @@ using UnityEngine.AI;
 
 public class Ship : Unit
 {
-    private NavMeshAgent _agent;
-
-    // Start is called before the first frame update
+    private NavMeshAgent _agent;    
 
     private void Awake()
     {
 
-        this._agent = GetComponent<NavMeshAgent>();
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+        this._agent = GetComponent<NavMeshAgent>(); //Obtengo el agente del objeto.
     }
 
     public bool Get_Selected()
     {
         return _selected;
     }
+
+    //Metodo para mover la nave.
     public override void OnMove(Vector3 WorldPos)
     {
-        
-      
         this._agent.isStopped = false;
         
         this._agent.Resume();
-        this._agent.SetDestination(WorldPos);
-        //print("ONMOVE! " + WorldPos);
+        this._agent.SetDestination(WorldPos);   //Le asigno un punto del mapa al cual moverse.
     }
 
+
+//Metodo para detener la nave
     public override void OnStop()
     {
-
          this._agent.isStopped = true;
     }
 
@@ -50,21 +43,22 @@ public class Ship : Unit
     }
 
    
-
+//Metodo para asignar la velocidad de la nave.
     public void Speed_Agent(float speed)
     {
         _agent.speed = speed;
     }
 
+//Metodo para asignar la aceleracion de la nave.
     public void Acceleration_Agent(float acc)
     {
         _agent.acceleration = acc;
     }
 
+
+//Metodo para asignar la velocidad de giro de la nave.
     public void AngularSpeed_Agent(float ang_speed)
     {
         _agent.angularSpeed = ang_speed;
     }
-
-  
 }

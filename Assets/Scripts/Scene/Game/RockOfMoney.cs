@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class RockOfMoney : MonoBehaviour
 {
-    public int _money;
+    public int _money;  //Dinero maximo que tiene la roca.
     private int _current_Money;
-    public bool _is_Big;
+    public bool _is_Big;    //Si la roca es grande.
     private bool _destroy = false;
 
-    private RecollectShip _ship = null;
+    private RecollectShip _ship = null; //Nave de recoleccion
 
     private PoolRockOfMoney _pool;
 
     private ManagerMeteorite _meteorite;
-    // Start is called before the first frame update
+
     void Start()
     {
-        //_ship = FindObjectOfType<RecollectShip>();
+        
         _meteorite = FindObjectOfType<ManagerMeteorite>();
         _current_Money = _money;
         _pool = FindObjectOfType<PoolRockOfMoney>();
@@ -27,29 +27,23 @@ public class RockOfMoney : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_money <= 0){
+        if(_money <= 0){    //Si dinero es menor o igual que cero se destruye.
            
             OnDestroy();
         }
     }
 
     private void OnDestroy(){
-        if(!_destroy){
-            _destroy = true;
+        if(!_destroy){  //Si destroy es falso
+            _destroy = true;    //Se convierte en verdadero.
             try{
-                _ship.Set_Recollect(null);
-                _ship._sync = false;
-                _ship._contact = false;
-                _pool.Eliminate_Rocks(this);
-                _meteorite.Eliminate_Object(this.gameObject);
-                Destroy(this.gameObject, 0.1f);
+                _ship.Set_Recollect(null);  //Le paso a la nave que no tiene objetivo de recoleccion
+                _ship._sync = false;    //Seteo en falso la sincronizacion
+                _ship._contact = false; //Falso el contacto.
+                _pool.Eliminate_Rocks(this);    //Elimino esta roca del pool.
+                _meteorite.Eliminate_Object(this.gameObject);   //Elimino esta roca de los objetos que el meteorito debe excluir.
+                Destroy(this.gameObject, 0.1f); //DEstruyo el objeto en 0.1f
             }catch{
-                //print("La roca que molesta es: " + this.gameObject.name);
-                /*_ship.Set_Recollect(null);
-                _ship._sync = false;
-                _ship._contact = false;
-                _pool.Eliminate_Rocks(this);
-                _meteorite.Eliminate_Object(this.gameObject);*/
                 Destroy(this.gameObject);
             }
         }
@@ -59,6 +53,8 @@ public class RockOfMoney : MonoBehaviour
         _ship = Ship;
     }
 
+
+//Metodo para extraer dinero.
     public void Extract_Money(int extract)
     {
         _money -= extract;

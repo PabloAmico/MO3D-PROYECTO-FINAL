@@ -13,6 +13,7 @@ TagManager:
   - Laser
   - RockOfMoney
   - HangarPlayer
+  - HangarEnemy
   layers:
   - Default
   - TransparentFX

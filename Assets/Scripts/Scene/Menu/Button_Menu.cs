@@ -6,19 +6,6 @@ using UnityEngine;
 public class Button_Menu : MonoBehaviour
 {
 
-    
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Run_game(){
         SceneManager.LoadScene("SceneGame");
     }

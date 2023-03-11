@@ -15,7 +15,7 @@ public class Selection_Box : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this._selectionRect.Set(0, 0, 0, 0); //seteo a 0 la posicion y el tamaño del rectandulo de seleccion
+        this._selectionRect.Set(0, 0, 0, 0); //seteo a 0 la posicion y el tamaï¿½o del rectandulo de seleccion
         this._rectTransform = GetComponent<RectTransform>(); //obtengo el rectransform del objeto
         this._rectTransform.gameObject.SetActive(false); //desactivo el objeto
         this._minSize = (Screen.width * 0.05f + Screen.height * 0.05f) / 2f; //medida minima del cuadrado a dibujar para obtener una seleccion valida.
@@ -70,10 +70,5 @@ public class Selection_Box : MonoBehaviour
     public void EndClick()
     {
         this._rectTransform.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

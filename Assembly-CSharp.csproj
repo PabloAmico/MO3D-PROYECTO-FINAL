@@ -63,11 +63,14 @@
      <Compile Include="Assets\Scripts\Scene\Menu\Button_Menu.cs" />
      <Compile Include="Assets\Scripts\Enemy\IA_Ship.cs" />
      <Compile Include="Assets\Scripts\Weapons\Bullets.cs" />
+     <Compile Include="Assets\Scripts\Scene\Game\PercentageRocket.cs" />
      <Compile Include="Assets\Scripts\Enemy\IABasicShip.cs" />
      <Compile Include="Assets\Scripts\Scene\Menu\Move_Camera_Menu.cs" />
      <Compile Include="Assets\Scripts\Player Ships\Unit.cs" />
      <Compile Include="Assets\Scripts\Weapons\Missile.cs" />
+     <Compile Include="Assets\Scripts\Scene\Game\TimeDestructionWorld.cs" />
      <Compile Include="Assets\Scripts\Scene\Game\TextHit.cs" />
+     <Compile Include="Assets\Scripts\Scene\Game\MoveRocket.cs" />
      <Compile Include="Assets\Scripts\Scene\Game\Tutorial.cs" />
      <Compile Include="Assets\Scripts\Scene\Game\Meteorite.cs" />
      <Compile Include="Assets\Scripts\Weapons\PoolMissile.cs" />
@@ -76,6 +79,7 @@
      <Compile Include="Assets\Scripts\ParticleControlShips.cs" />
      <Compile Include="Assets\Scripts\Player Ships\BasicShipAttack.cs" />
      <Compile Include="Assets\Scripts\Weapons\LaserRecollect.cs" />
+     <Compile Include="Assets\Scripts\Scene\Game\ChangeCameraControl.cs" />
      <Compile Include="Assets\Scripts\Scene\Game\SFX_Radio.cs" />
      <Compile Include="Assets\Scripts\Weapons\Laser.cs" />
      <Compile Include="Assets\Scripts\Player Ships\MissileShipAttack.cs" />

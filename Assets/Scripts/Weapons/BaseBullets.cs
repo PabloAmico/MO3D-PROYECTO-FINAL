@@ -2,18 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Clase de la cual heredan las balas.
 public class BaseBullets : MonoBehaviour
 {
-    public Vector3 _pos_Objective;
-    public float _velocity;
-    protected Vector3 _direction_Shoot;
-    protected int _Damage= 0;
+    public Vector3 _pos_Objective; //Posicion del objetivo.
+    public float _velocity; //Velocidad de movimiento de la bala.
+    protected Vector3 _direction_Shoot; //Direccion del disparo.
+    protected int _Damage= 0;   
     public bool in_Use = false;
     public GameObject _ship_Shooter;    //Nave que dispara el proyectil.
-    public Material _material_Bullet_Player;
-    public Material _material_Bullet_Enemy;
     public SFX_Radio _radio;
-    // Start is called before the first frame update
+
+    //La bala cambia de material al ser del jugador o del enemigo
+    public Material _material_Bullet_Player;    
+    public Material _material_Bullet_Enemy;
+
+
+
+
     void Start()
     {
         _radio = FindObjectOfType<SFX_Radio>();
@@ -24,34 +30,37 @@ public class BaseBullets : MonoBehaviour
     {
 
     }
-    // Update is called once per frame
     void Update()
     {
         Move_Bullet();
     }
 
+
+//Si las balas salen de la pantalla las cambio de posicion.
     protected void OnBecameInvisible()
     {
-        if (in_Use)
+        if (in_Use) //Si estan en uso.
         {
-            gameObject.SetActive(false);
+            gameObject.SetActive(false);    //Las desactivo.
             gameObject.transform.position = Vector3.zero;
             gameObject.transform.rotation = Quaternion.identity;
             in_Use = false;
         }
     }
 
+
+//Asigno la posicion y rotacion de la bala respecto de la nave que dispara.
     public void Assign_PosAndRot(Vector3 pos, Quaternion angle, Vector3 posObj)
     {
         transform.position = pos;
-        //transform.rotation = angle;
         _pos_Objective = posObj;
         _direction_Shoot = _pos_Objective;
-        //print(transform.position);
         in_Use = true;
         gameObject.transform.LookAt(posObj);
     }
 
+
+//Asigna la nave que dispara y dependiendo de eso cambia la textura.
     public void Assign_Shooter(GameObject Shooter)
     {
         _ship_Shooter = Shooter;
@@ -63,19 +72,21 @@ public class BaseBullets : MonoBehaviour
 
     }
 
+//Metodo para mover la bala.
     private void Move_Bullet()
     {
-        if (gameObject.activeSelf)
+        if (gameObject.activeSelf)  //Si esta activa
         {
-            //print("Moving!");
+           
             in_Use = true;
-            //            gameObject.GetComponent<Rigidbody>().AddForce(_direction_Shoot * _velocity, ForceMode.Impulse);
-
-            transform.position = Vector3.MoveTowards(transform.position, _direction_Shoot, _velocity * Time.deltaTime);
+            //La muevo hacia la posicion del objetivo.
+            transform.position = Vector3.MoveTowards(transform.position, _direction_Shoot, _velocity * Time.deltaTime); 
+            //Si llego a la posicion
             if (transform.position.x > _direction_Shoot.x - 0.5f && transform.position.x < _direction_Shoot.x + 0.5f)
             {
                 if (transform.position.z > _direction_Shoot.z - 0.5f && transform.position.z < _direction_Shoot.z + 0.5f)
                 {
+                    //La alejo y por ende se desactiva.
                     transform.position = new Vector3(1000f, 1000f, 1000f);
                 }
             }
@@ -96,7 +107,6 @@ public class BaseBullets : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Ship Enemy") && _ship_Shooter.gameObject.CompareTag("Player"))
             {
-                //Debug.Log("Colision Enemy");
                 other.gameObject.GetComponent<StatsUnits>().Set_Damage(_Damage);
                 
                 try
@@ -158,7 +168,6 @@ public class BaseBullets : MonoBehaviour
             {
                 if (other.gameObject.CompareTag("Rocket") && _ship_Shooter.gameObject.CompareTag("Ship Enemy"))
                 {
-                    //print("Colision cohete");
                     other.gameObject.GetComponent<Rocket>().Set_Damage(_Damage);
                     transform.position = new Vector3(1000f, 1000f, 1000f);
                 }
@@ -176,7 +185,6 @@ public class BaseBullets : MonoBehaviour
             {
                 if (other.gameObject.CompareTag("HangarEnemy") && _ship_Shooter.gameObject.CompareTag("Player"))
                 {
-                    //print("Colision cohete");
                     other.gameObject.GetComponent<Hangar_Enemy>().Set_Damage(_Damage);
                     transform.position = new Vector3(1000f, 1000f, 1000f);
                 }

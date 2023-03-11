@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    private LineRenderer _lineRenderer;
-    public float _distance_Laser = 0.5f;
+    private LineRenderer _lineRenderer; //Linea que dibuja el laser.
+    public float _distance_Laser = 0.5f;    //Distancia del laser.
     private bool _laserOn = false;
     public GameObject _objective = null;
     public StatsUnits _Stats;
     public bool Attack;
-    public bool _is_Player;
-   // private int _damage;
+    public bool _is_Player; //Si es del jugador el laser disparado.
     
     void Start()
     {
@@ -22,25 +21,26 @@ public class Laser : MonoBehaviour
 
     void Update()
     {
-        if (_laserOn)
+        if (_laserOn)   //Si el laser esta activo
         {
             
-            _lineRenderer.SetPosition(0, transform.position);
-            RaycastHit hit;
+            _lineRenderer.SetPosition(0, transform.position);   //Seteo el inicio en la posicion inicial.
+            RaycastHit hit; //Y creo un raycast.
             if (Physics.Raycast(transform.position, transform.forward, out hit))
             {
-                if(_is_Player){
-                    if (hit.collider.tag == "Ship Enemy")
+                if(_is_Player){ //Si es una nave del jugador
+                    if (hit.collider.tag == "Ship Enemy")   //Y el raycast colisiona con una nave enemiga.
                     {
                         try
                         {
-                            _lineRenderer.SetPosition(1, _objective.transform.position);
+                            _lineRenderer.SetPosition(1, _objective.transform.position);    //Pongo el fin del laser en la nave objetivo.
                         }
                         catch
                         {
 
                         }
                         
+                        //Ejecuto el daño de ataque.
                         if (Attack)
                         {
                             if (hit.collider.GetComponent<StatsUnits>() == _Stats._unit_Objective)
@@ -52,18 +52,18 @@ public class Laser : MonoBehaviour
                         }
                     }
                 }else{
-                    if (hit.collider.tag == "Player")
+                    if (hit.collider.tag == "Player")   //Si colisiono con el jugador
                     {
                         try
                         {
-                            _lineRenderer.SetPosition(1, _objective.transform.position);
-                            //print(_objective.transform.position);
+                            _lineRenderer.SetPosition(1, _objective.transform.position);    //Establezco el fin en el objetivo.
+                            
                         }
                         catch
                         {
 
                         }
-                        
+                        //Ejecuto el daño de ataque.
                         if (Attack)
                         {
                             if (hit.collider.GetComponent<StatsUnits>() == _Stats._unit_Objective)
@@ -81,7 +81,7 @@ public class Laser : MonoBehaviour
                 _lineRenderer.SetPosition(1, transform.forward * _distance_Laser);
             }
         }
-        else
+        else//Si no tengo objetivo. Hago desaparecer el laser.
         {
             _lineRenderer.SetPosition(0, transform.position);
             _lineRenderer.SetPosition(1, transform.position);

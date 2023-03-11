@@ -436,21 +436,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _points_Attack: 0
   _points_Life: 40
-  _points_Percentage_Critical: 0
   _points_Speed: 12
   _points_Acceleration: 12
   _points_AngularSpeed: 300
   _cooldown_Attack: 0
-  _unit_Objective: {fileID: 0}
-  _units_InZone: []
-  _canvas_Hit: {fileID: 0}
   _points_Life_Max: 0
   _is_Dead: 0
   _ship: {fileID: 0}
   _zone_Rocket: 0
+  _unit_Objective: {fileID: 0}
+  _units_InZone: []
+  _canvas_Hit: {fileID: 0}
   _is_Big: 0
   _contact: 0
-  _collect_Money: 150
+  _collect_Money: 100
   _timeRecollect: 2
   _objective_Recollect: {fileID: 0}
   _destiny: 0

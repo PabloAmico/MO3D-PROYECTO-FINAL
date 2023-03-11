@@ -6,37 +6,29 @@ public class ManagerBox : MonoBehaviour
 {
     public Selection_Box box;
     private bool _selecting = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
-        //print("update");
-        if (Input.GetMouseButtonDown(0))
+       
+        if (Input.GetMouseButtonDown(0))    //Si hago click izquierdo.
         {
-            //print("Click");
-            this._selecting = true;
-            box.BeginBox(Input.mousePosition);
+            this._selecting = true; //Estoy seleccionando
+            box.BeginBox(Input.mousePosition);  //Le digo a la caja de seleccion el punto inicial.
         }
 
-        if (_selecting)
+        if (_selecting) //si estoy seleccionando.
         {
-            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0) //Si muevo el mouse haciendo click izquierdo.
             {
-                //Estamos arrastrando
-                box.DragClick(Input.mousePosition);
+                box.DragClick(Input.mousePosition); //Paso la posicion actual del mouse.
             }
         }
 
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))  //Si dejamos de presionar el click izquierdo
         {
 
-            box.EndClick();
+            box.EndClick(); //le aviso a la caja de seleccion
             this._selecting = false;
         }
     }

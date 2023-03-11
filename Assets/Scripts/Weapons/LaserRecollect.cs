@@ -8,13 +8,13 @@ public class LaserRecollect : MonoBehaviour
     public float _distance_Laser = 0.5f;
     private bool _laserOn = false;
     public GameObject _objective = null;
-    // Start is called before the first frame update
     void Start()
     {
      _lineRenderer = GetComponent<LineRenderer>();   
     }
 
-    // Update is called once per frame
+
+//Este laser funciona igual que el anterior pero solo detecta las rocas.
     void Update()
     {
         if (_laserOn)
@@ -25,7 +25,6 @@ public class LaserRecollect : MonoBehaviour
             {
                 if (hit.collider.tag == "RockOfMoney")
                 {
-                    print("COLISION CON LA ROCA");
                     try
                     {
                         _lineRenderer.SetPosition(1, _objective.transform.position);
@@ -40,7 +39,7 @@ public class LaserRecollect : MonoBehaviour
             {
                
                 _lineRenderer.SetPosition(1, transform.forward * _distance_Laser);
-                 print("Les erre, perdon " + hit.collider.name);
+
             }
         }
         else
